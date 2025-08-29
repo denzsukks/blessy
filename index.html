@@ -143,7 +143,7 @@
       100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
     }
 
-   /* Gallery Section */
+ /* Gallery Section */
 .gallery {
   display: flex;
   flex-direction: column;
@@ -161,8 +161,8 @@
   background: #111;
   padding: 12px;
   opacity: 0;
-  transform: translateY(60px) scale(0.95);
-  transition: all 1.2s ease;
+  transform: translateY(40px);
+  transition: opacity 1s ease, transform 1s ease;
 }
 
 .gallery-block img {
@@ -190,18 +190,12 @@
   align-self: center;
 }
 
-/* Floating effect */
+/* When visible on scroll */
 .gallery-block.visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
-  animation: floatGallery 6s ease-in-out infinite alternate;
+  transform: translateY(0);
 }
 
-@keyframes floatGallery {
-  0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-10px) scale(1.02); }
-  100% { transform: translateY(0) scale(1); }
-}
 
   </style>
 </head>
@@ -296,7 +290,7 @@
     }
 
 
- // Reveal gallery on scroll + floating animation
+// Reveal gallery images and messages on scroll
 const blocks = document.querySelectorAll('.gallery-block');
 window.addEventListener('scroll', () => {
   blocks.forEach(block => {
