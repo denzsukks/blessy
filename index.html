@@ -312,16 +312,18 @@
     }
 
 
- // Reveal gallery on scroll + floating animation
+ // Reveal gallery on scroll
 const blocks = document.querySelectorAll('.gallery-block');
 window.addEventListener('scroll', () => {
   blocks.forEach(block => {
     const rect = block.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 80) {
-      block.classList.add("visible");
+    if (rect.top < window.innerHeight - 100) {
+      block.style.opacity = 1;
+      block.style.transform = "translateY(0)";
     }
   });
 });
+
 
 
 // Typing effect for gallery messages
