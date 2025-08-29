@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Bless ❤️</title>
+  <style>
+    /* --- Reset & Fonts --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* --- Header --- */
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #fff;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: fadeInDown 2s ease;
+    }
+    header p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      animation: fadeInUp 2.5s ease;
+    }
+
+    /* --- Floating Hearts Animation --- */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      color: #ff4d6d;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 0.8; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
+
+    /* --- Sections --- */
+    section {
+      padding: 80px 20px;
+      background: #fff;
+      margin: 20px;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      animation: fadeIn 1.5s ease;
+    }
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #ff4d6d;
+    }
+    section p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* --- Animations --- */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      padding: 20px;
+      color: #555;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>For My Love, Bless ❤️</h1>
+    <p>You are the reason behind my smiles, my strength across the distance, and the one I’ll always be grateful for.</p>
+  </header>
+
+  <!-- Main Section -->
+  <section>
+    <h2>My Message to You 💌</h2>
+    <p>
+      Even though we’re far apart, my heart always feels close to you.  
+      This little website is my way of saying thank you for being you—  
+      the most beautiful, caring, and amazing person in my life.  
+    </p>
+  </section>
+
+  <!-- Memories Section -->
+  <section>
+    <h2>Our Memories 🌸</h2>
+    <p>
+      (Here you can add photos, inside jokes, or little stories of your moments together.  
+      You can also put a small photo gallery or timeline later.)
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    Made with ❤️ by Denzel for Bless
+  </footer>
+
+  <!-- Floating Hearts -->
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      heart.innerText = "❤";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+    setInterval(createHeart, 500);
+  </script>
+</body>
+</html>
