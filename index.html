@@ -9,73 +9,51 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
-      color: #333;
+      background: #111;
+      color: #eee;
       text-align: center;
       overflow-x: hidden;
     }
 
-    header {
+    /* --- Top Carousel --- */
+    .carousel-container {
+      position: relative;
+      max-width: 100%;
       height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      color: #fff;
+      overflow: hidden;
     }
-    header h1 {
+    .carousel-slide {
+      display: none;
+      height: 100vh;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.6);
+    }
+    .carousel-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ff4d6d;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.8);
+      text-align: center;
+    }
+    .carousel-text h1 {
       font-size: 3rem;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       animation: fadeInDown 2s ease;
     }
-    header p {
+    .carousel-text p {
       font-size: 1.2rem;
       max-width: 600px;
+      margin: auto;
       animation: fadeInUp 2.5s ease;
     }
 
-    /* Floating Glassy Box */
-    .message-box {
-      margin: 60px auto;
-      max-width: 500px;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(15px);
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-      color: #fff;
-      cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-      animation: float 4s ease-in-out infinite;
-    }
-    .message-box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-    }
-    .hidden-message {
-      display: none;
-      margin-top: 15px;
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-
-    /* Gallery (Slideshow) */
-    .slideshow-container {
-      max-width: 600px;
-      position: relative;
-      margin: 60px auto;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    }
-    .mySlides {
-      display: none;
-    }
-    .mySlides img {
-      width: 100%;
-      border-radius: 15px;
-    }
+    /* Controls */
     .prev, .next {
       cursor: pointer;
       position: absolute;
@@ -85,16 +63,40 @@
       color: white;
       font-weight: bold;
       font-size: 18px;
-      border-radius: 0 3px 3px 0;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
       user-select: none;
-      background: rgba(0,0,0,0.4);
+      z-index: 10;
     }
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
+    .next { right: 20px; }
+    .prev { left: 20px; }
     .prev:hover, .next:hover {
-      background: rgba(0,0,0,0.8);
+      background: #ff4d6d;
+    }
+
+    /* Floating Glassy Box */
+    .message-box {
+      margin: 60px auto;
+      max-width: 500px;
+      background: rgba(255, 0, 0, 0.2);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: float 4s ease-in-out infinite;
+    }
+    .message-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 40px rgba(255,0,0,0.7);
+    }
+    .hidden-message {
+      display: none;
+      margin-top: 15px;
+      font-size: 1rem;
+      line-height: 1.6;
     }
 
     /* Animations */
@@ -113,7 +115,7 @@
 
     footer {
       padding: 20px;
-      color: #fff;
+      color: #aaa;
       font-size: 0.9rem;
     }
 
@@ -125,6 +127,7 @@
       color: #ff4d6d;
       animation: floatUp 6s linear infinite;
       opacity: 0.8;
+      z-index: 999;
     }
     @keyframes floatUp {
       0% { transform: translateY(0) scale(1); opacity: 0.8; }
@@ -133,30 +136,29 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <h1>For My Love, Bless ❤️</h1>
-    <p>Even though distance separates us, nothing can ever take away the closeness of our hearts.</p>
-  </header>
+
+  <!-- Top Carousel -->
+  <div class="carousel-container">
+    <div class="carousel-slide"><img src="assets/img/1.jpg" alt="Bless 1"></div>
+    <div class="carousel-slide"><img src="assets/img/2.jpg" alt="Bless 2"></div>
+    <div class="carousel-slide"><img src="assets/img/3.jpg" alt="Bless 3"></div>
+
+    <div class="carousel-text">
+      <h1>For My Love, Bless ❤️</h1>
+      <p>You’re my forever, no matter the distance.</p>
+    </div>
+
+    <a class="prev" onclick="plusTopSlides(-1)">❮</a>
+    <a class="next" onclick="plusTopSlides(1)">❯</a>
+  </div>
 
   <!-- Interactive Message -->
   <div class="message-box" onclick="toggleMessage()">
     <h2>💌 Click to Reveal My Message</h2>
     <div class="hidden-message">
-      You are my sunshine on cloudy days, my comfort through the distance, and my forever person.  
-      I made this little website so you’ll always have a piece of me close by. 💖
+      You’re my sunshine on cloudy days, my comfort through the distance, and my forever person.  
+      I made this little website so you’ll always have a piece of me close by. ❤️
     </div>
-  </div>
-
-  <!-- Gallery Section -->
-  <div class="slideshow-container">
-    <div class="mySlides"><img src="assets/img/1.jpg" alt="Memory 1"></div>
-    <div class="mySlides"><img src="assets/img/2.jpg" alt="Memory 2"></div>
-    <div class="mySlides"><img src="assets/img/3.jpg" alt="Memory 3"></div>
-
-    <!-- Controls -->
-    <a class="prev" onclick="plusSlides(-1)">❮</a>
-    <a class="next" onclick="plusSlides(1)">❯</a>
   </div>
 
   <!-- Footer -->
@@ -184,23 +186,27 @@
       msg.style.display = (msg.style.display === "block") ? "none" : "block";
     }
 
-    // Slideshow
-    let slideIndex = 1;
-    showSlides(slideIndex);
+    // --- Top Carousel ---
+    let topIndex = 0;
+    showTopSlides(topIndex);
 
-    function plusSlides(n) {
-      showSlides(slideIndex += n);
+    function plusTopSlides(n) {
+      showTopSlides(topIndex += n);
     }
-    function showSlides(n) {
+
+    function showTopSlides(n) {
       let i;
-      let slides = document.getElementsByClassName("mySlides");
-      if (n > slides.length) {slideIndex = 1}
-      if (n < 1) {slideIndex = slides.length}
+      let slides = document.getElementsByClassName("carousel-slide");
+      if (n >= slides.length) { topIndex = 0; }
+      if (n < 0) { topIndex = slides.length - 1; }
       for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";  
+        slides[i].style.display = "none";
       }
-      slides[slideIndex-1].style.display = "block";  
+      slides[topIndex].style.display = "block";
     }
+
+    // auto play top carousel
+    setInterval(() => { plusTopSlides(1); }, 4000);
   </script>
 </body>
 </html>
