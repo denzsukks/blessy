@@ -5,12 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>For Bless ❤️</title>
   <style>
-    /* --- Reset & Fonts --- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
@@ -19,7 +15,6 @@
       overflow-x: hidden;
     }
 
-    /* --- Header --- */
     header {
       height: 100vh;
       display: flex;
@@ -40,7 +35,89 @@
       animation: fadeInUp 2.5s ease;
     }
 
-    /* --- Floating Hearts Animation --- */
+    /* Floating Glassy Box */
+    .message-box {
+      margin: 60px auto;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: float 4s ease-in-out infinite;
+    }
+    .message-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .hidden-message {
+      display: none;
+      margin-top: 15px;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Gallery (Slideshow) */
+    .slideshow-container {
+      max-width: 600px;
+      position: relative;
+      margin: 60px auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    .mySlides {
+      display: none;
+    }
+    .mySlides img {
+      width: 100%;
+      border-radius: 15px;
+    }
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      padding: 16px;
+      margin-top: -22px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+      background: rgba(0,0,0,0.4);
+    }
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+    .prev:hover, .next:hover {
+      background: rgba(0,0,0,0.8);
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    footer {
+      padding: 20px;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    /* Floating Hearts */
     .heart {
       position: fixed;
       bottom: -20px;
@@ -53,82 +130,43 @@
       0% { transform: translateY(0) scale(1); opacity: 0.8; }
       100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
     }
-
-    /* --- Sections --- */
-    section {
-      padding: 80px 20px;
-      background: #fff;
-      margin: 20px;
-      border-radius: 20px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      animation: fadeIn 1.5s ease;
-    }
-    section h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #ff4d6d;
-    }
-    section p {
-      max-width: 700px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-
-    /* --- Animations --- */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-50px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(50px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    footer {
-      padding: 20px;
-      color: #555;
-      font-size: 0.9rem;
-    }
   </style>
 </head>
 <body>
   <!-- Header -->
   <header>
     <h1>For My Love, Bless ❤️</h1>
-    <p>You are the reason behind my smiles, my strength across the distance, and the one I’ll always be grateful for.</p>
+    <p>Even though distance separates us, nothing can ever take away the closeness of our hearts.</p>
   </header>
 
-  <!-- Main Section -->
-  <section>
-    <h2>My Message to You 💌</h2>
-    <p>
-      Even though we’re far apart, my heart always feels close to you.  
-      This little website is my way of saying thank you for being you—  
-      the most beautiful, caring, and amazing person in my life.  
-    </p>
-  </section>
+  <!-- Interactive Message -->
+  <div class="message-box" onclick="toggleMessage()">
+    <h2>💌 Click to Reveal My Message</h2>
+    <div class="hidden-message">
+      You are my sunshine on cloudy days, my comfort through the distance, and my forever person.  
+      I made this little website so you’ll always have a piece of me close by. 💖
+    </div>
+  </div>
 
-  <!-- Memories Section -->
-  <section>
-    <h2>Our Memories 🌸</h2>
-    <p>
-      (Here you can add photos, inside jokes, or little stories of your moments together.  
-      You can also put a small photo gallery or timeline later.)
-    </p>
-  </section>
+  <!-- Gallery Section -->
+  <div class="slideshow-container">
+    <div class="mySlides"><img src="images/photo1.jpg" alt="Memory 1"></div>
+    <div class="mySlides"><img src="images/photo2.jpg" alt="Memory 2"></div>
+    <div class="mySlides"><img src="images/photo3.jpg" alt="Memory 3"></div>
+
+    <!-- Controls -->
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+  </div>
 
   <!-- Footer -->
   <footer>
     Made with ❤️ by Denzel for Bless
   </footer>
 
-  <!-- Floating Hearts -->
+  <!-- Scripts -->
   <script>
+    // Floating hearts
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
@@ -136,12 +174,33 @@
       heart.style.animationDuration = (3 + Math.random() * 3) + "s";
       heart.innerText = "❤";
       document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 6000);
+      setTimeout(() => heart.remove(), 6000);
     }
-    setInterval(createHeart, 500);
+    setInterval(createHeart, 600);
+
+    // Toggle message
+    function toggleMessage() {
+      const msg = document.querySelector(".hidden-message");
+      msg.style.display = (msg.style.display === "block") ? "none" : "block";
+    }
+
+    // Slideshow
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slides[slideIndex-1].style.display = "block";  
+    }
   </script>
 </body>
 </html>
