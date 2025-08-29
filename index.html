@@ -143,36 +143,36 @@
       100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
     }
 
- /* Gallery Section */
+/* Gallery Section */
 .gallery {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 80px 0;
-  gap: 60px;
+  margin: 100px 0;
+  gap: 80px;
 }
 
 .gallery-block {
-  width: 320px; /* smaller size */
+  width: 500px;
   max-width: 90%;
-  border-radius: 12px;
+  border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 6px 20px rgba(255,0,0,0.5);
   background: #111;
-  padding: 12px;
+  padding: 15px;
+  animation: fadeUp 1.5s ease forwards;
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 1s ease, transform 1s ease;
 }
 
 .gallery-block img {
   width: 100%;
   border-radius: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .gallery-block p {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #ddd;
   text-align: left;
 }
@@ -180,39 +180,21 @@
 /* Offsets for artistic look */
 .gallery-block.left {
   align-self: flex-start;
-  margin-left: 8%;
+  margin-left: 5%;
 }
 .gallery-block.right {
   align-self: flex-end;
-  margin-right: 8%;
+  margin-right: 5%;
 }
 .gallery-block.center {
   align-self: center;
 }
 
-/* When visible on scroll */
-.gallery-block.visible {
-  opacity: 1;
-  transform: translateY(0);
+/* Scroll Animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-.typing {
-  font-size: 0.9rem;
-  color: #ddd;
-  text-align: left;
-  white-space: pre-wrap;
-  min-height: 1.2em;
-  border-right: 2px solid #ff4d6d;
-}
-
-@keyframes blinkCursor {
-  50% { border-color: transparent; }
-}
-
-.typing::after {
-  content: '';
-  animation: blinkCursor 0.7s step-end infinite;
-}
-
 
   </style>
 </head>
@@ -235,26 +217,19 @@
     </div>
   </div>
 
+<!-- Multiple Gallery Sections -->
 <section class="gallery">
   <div class="gallery-block left">
     <img src="assets/img/1.jpg" alt="Memory 1">
-    <p class="typing" data-text="✨ Our first memory together, I’ll always cherish this moment."></p>
+    <p>✨ Our first memory together, I’ll always cherish this moment.</p>
   </div>
   <div class="gallery-block right">
     <img src="assets/img/2.jpg" alt="Memory 2">
-    <p class="typing" data-text="❤️ Even from afar, you make my world brighter."></p>
+    <p>❤️ Even from afar, you make my world brighter.</p>
   </div>
   <div class="gallery-block center">
     <img src="assets/img/3.jpg" alt="Memory 3">
-    <p class="typing" data-text="🌹 Distance means nothing when someone means everything."></p>
-  </div>
-  <div class="gallery-block left">
-    <img src="assets/img/4.jpg" alt="Memory 4">
-    <p class="typing" data-text="🌙 Late-night talks that make my heart full."></p>
-  </div>
-  <div class="gallery-block right">
-    <img src="assets/img/5.jpg" alt="Memory 5">
-    <p class="typing" data-text="🌸 Your smile is the best part of my day."></p>
+    <p>🌹 Distance means nothing when someone means everything.</p>
   </div>
 </section>
 
@@ -307,33 +282,18 @@
     }
 
 
-// Reveal gallery images and messages on scroll
+// Reveal gallery on scroll
 const blocks = document.querySelectorAll('.gallery-block');
 window.addEventListener('scroll', () => {
   blocks.forEach(block => {
     const rect = block.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 80) {
-      block.classList.add("visible");
+    if (rect.top < window.innerHeight - 100) {
+      block.style.opacity = 1;
+      block.style.transform = "translateY(0)";
     }
   });
 });
-// Typing effect for gallery messages
-const typingElements = document.querySelectorAll('.typing');
 
-typingElements.forEach(el => {
-  const text = el.getAttribute('data-text');
-  let index = 0;
-
-  function type() {
-    if (index < text.length) {
-      el.textContent += text.charAt(index);
-      index++;
-      setTimeout(type, 50); // adjust typing speed here
-    }
-  }
-
-  type(); // start typing immediately
-});
   </script>
 </body>
 </html>
