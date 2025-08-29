@@ -9,69 +9,40 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #111;
-      color: #eee;
+      background: #000;
+      color: #fff;
       text-align: center;
       overflow-x: hidden;
     }
 
-    /* --- Top Carousel --- */
-    .carousel-container {
+    /* Hero Video Background */
+    header {
       position: relative;
-      max-width: 100%;
       height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
       overflow: hidden;
     }
-    .carousel-slide {
-      display: none;
-      height: 100vh;
-    }
-    .carousel-slide img {
-      width: 100%;
-      height: 100vh;
-      object-fit: cover;
-      filter: brightness(0.6);
-    }
-    .carousel-text {
+    header video {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #ff4d6d;
-      text-shadow: 0 4px 8px rgba(0,0,0,0.8);
-      text-align: center;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -1;
     }
-    .carousel-text h1 {
+    header h1 {
       font-size: 3rem;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       animation: fadeInDown 2s ease;
     }
-    .carousel-text p {
+    header p {
       font-size: 1.2rem;
       max-width: 600px;
-      margin: auto;
       animation: fadeInUp 2.5s ease;
-    }
-
-    /* Controls */
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      padding: 16px;
-      margin-top: -22px;
-      color: white;
-      font-weight: bold;
-      font-size: 18px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.5);
-      user-select: none;
-      z-index: 10;
-    }
-    .next { right: 20px; }
-    .prev { left: 20px; }
-    .prev:hover, .next:hover {
-      background: #ff4d6d;
     }
 
     /* Floating Glassy Box */
@@ -82,7 +53,7 @@
       backdrop-filter: blur(15px);
       border-radius: 15px;
       padding: 30px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
       color: #fff;
       cursor: pointer;
       transition: transform 0.3s, box-shadow 0.3s;
@@ -90,13 +61,48 @@
     }
     .message-box:hover {
       transform: scale(1.05);
-      box-shadow: 0 12px 40px rgba(255,0,0,0.7);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
     }
     .hidden-message {
       display: none;
       margin-top: 15px;
       font-size: 1rem;
       line-height: 1.6;
+    }
+
+    /* Carousel Section */
+    .carousel-container {
+      max-width: 600px;
+      position: relative;
+      margin: 80px auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(255,0,0,0.4);
+    }
+    .mySlides {
+      display: none;
+      animation: fade 1.5s;
+    }
+    .mySlides img {
+      width: 100%;
+      border-radius: 15px;
+    }
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      padding: 16px;
+      margin-top: -22px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+      background: rgba(0,0,0,0.4);
+    }
+    .next { right: 0; border-radius: 3px 0 0 3px; }
+    .prev:hover, .next:hover {
+      background: rgba(255,0,0,0.8);
     }
 
     /* Animations */
@@ -111,6 +117,10 @@
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
+    }
+    @keyframes fade {
+      from { opacity: .4; }
+      to { opacity: 1; }
     }
 
     footer {
@@ -127,7 +137,6 @@
       color: #ff4d6d;
       animation: floatUp 6s linear infinite;
       opacity: 0.8;
-      z-index: 999;
     }
     @keyframes floatUp {
       0% { transform: translateY(0) scale(1); opacity: 0.8; }
@@ -136,29 +145,33 @@
   </style>
 </head>
 <body>
-
-  <!-- Top Carousel -->
-  <div class="carousel-container">
-    <div class="carousel-slide"><img src="assets/img/1.jpg" alt="Bless 1"></div>
-    <div class="carousel-slide"><img src="assets/img/2.jpg" alt="Bless 2"></div>
-    <div class="carousel-slide"><img src="assets/img/3.jpg" alt="Bless 3"></div>
-
-    <div class="carousel-text">
-      <h1>For My Love, Bless ❤️</h1>
-      <p>You’re my forever, no matter the distance.</p>
-    </div>
-
-    <a class="prev" onclick="plusTopSlides(-1)">❮</a>
-    <a class="next" onclick="plusTopSlides(1)">❯</a>
-  </div>
+  <!-- Hero with Video -->
+  <header>
+    <video autoplay muted loop playsinline>
+      <source src="video.mp4" type="video/mp4">
+    </video>
+    <h1>For My Love, Bless ❤️</h1>
+    <p>Even though distance separates us, nothing can ever take away the closeness of our hearts.</p>
+  </header>
 
   <!-- Interactive Message -->
   <div class="message-box" onclick="toggleMessage()">
     <h2>💌 Click to Reveal My Message</h2>
     <div class="hidden-message">
-      You’re my sunshine on cloudy days, my comfort through the distance, and my forever person.  
-      I made this little website so you’ll always have a piece of me close by. ❤️
+      You are my sunshine on cloudy days, my comfort through the distance, and my forever person.  
+      I made this little website so you’ll always have a piece of me close by. 💖
     </div>
+  </div>
+
+  <!-- Carousel Section -->
+  <div class="carousel-container">
+    <div class="mySlides"><img src="assets/img/1.jpg" alt="Memory 1"></div>
+    <div class="mySlides"><img src="assets/img/2.jpg" alt="Memory 2"></div>
+    <div class="mySlides"><img src="assets/img/3.jpg" alt="Memory 3"></div>
+
+    <!-- Controls -->
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
   </div>
 
   <!-- Footer -->
@@ -186,27 +199,26 @@
       msg.style.display = (msg.style.display === "block") ? "none" : "block";
     }
 
-    // --- Top Carousel ---
-    let topIndex = 0;
-    showTopSlides(topIndex);
+    // Slideshow with fade
+    let slideIndex = 0;
+    showSlides();
 
-    function plusTopSlides(n) {
-      showTopSlides(topIndex += n);
-    }
-
-    function showTopSlides(n) {
+    function showSlides() {
       let i;
-      let slides = document.getElementsByClassName("carousel-slide");
-      if (n >= slides.length) { topIndex = 0; }
-      if (n < 0) { topIndex = slides.length - 1; }
+      let slides = document.getElementsByClassName("mySlides");
       for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+        slides[i].style.display = "none";  
       }
-      slides[topIndex].style.display = "block";
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1 }
+      slides[slideIndex-1].style.display = "block";  
+      setTimeout(showSlides, 4000); // Change every 4s
     }
 
-    // auto play top carousel
-    setInterval(() => { plusTopSlides(1); }, 4000);
+    function plusSlides(n) {
+      slideIndex += n - 1;
+      showSlides();
+    }
   </script>
 </body>
 </html>
