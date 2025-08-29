@@ -109,6 +109,28 @@
     text-align:center;
     color:#aaa;
   }
+
+
+  #play-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ff1a1a;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    transition: transform 0.2s ease, background 0.3s ease;
+    z-index: 9999;
+  }
+  #play-btn:hover {
+    transform: scale(1.1);
+    background: #e60000;
+  }
 </style>
 </head>
 <body>
@@ -127,6 +149,8 @@
     Ginawa ko to habang iniisip ka, kasi miss na kita ng sobra hahahahhahahha, dito ko nalang ibubuhos pagkamiss ko sayo so i hope magustuhan mo hahahahhahaha, always remember na mahal na mahal kita!! 💖
   </div>
 </div>
+
+<button id="play-btn">▶️</button>
 
 <section class="gallery">
   <div class="gallery-row left">
@@ -154,7 +178,6 @@
 <audio id="bg-music" loop>
   <source src="assets/img/kahel.mp3" type="audio/mpeg">
 </audio>
-
 
 <footer>made with love❤️ by matmat for bless</footer>
 
@@ -208,21 +231,19 @@
   setInterval(createHeart,600);
 </script>
 <script>
-  window.addEventListener("load", () => {
-    const audio = document.getElementById("bg-music");
+  const playBtn = document.getElementById("play-btn");
+  const bgMusic = document.getElementById("bg-music");
+  let isPlaying = false;
 
-    // Try to play right away
-    let playPromise = audio.play();
-
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // If blocked, trick Chrome with a simulated click
-        let hiddenBtn = document.createElement("button");
-        hiddenBtn.style.display = "none";
-        document.body.appendChild(hiddenBtn);
-        hiddenBtn.click();
-        audio.play();
-      });
+  playBtn.addEventListener("click", () => {
+    if (!isPlaying) {
+      bgMusic.play();
+      playBtn.textContent = "⏸️"; // change icon to pause
+      isPlaying = true;
+    } else {
+      bgMusic.pause();
+      playBtn.textContent = "▶️"; // back to play
+      isPlaying = false;
     }
   });
 </script>
