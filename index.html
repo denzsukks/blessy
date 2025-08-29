@@ -199,10 +199,10 @@
 }
 
 /* Scroll Animation */
-@keyframes fadeUp {
+/* @keyframes fadeUp {
   from { opacity: 0; transform: translateY(60px); }
   to { opacity: 1; transform: translateY(0); }
-}
+} */
 
 @keyframes blinkCursor {
   50% { border-color: transparent; }
@@ -243,7 +243,16 @@
     <img src="assets/img/3.jpg" alt="Memory 3">
     <p class="typing" data-text="🌹 Distance means nothing when someone means everything."></p>
   </div>
+  <div class="gallery-block left">
+    <img src="assets/img/4.jpg" alt="Memory 4">
+    <p class="typing" data-text="🌙 Late-night talks that make my heart full."></p>
+  </div>
+  <div class="gallery-block right">
+    <img src="assets/img/5.jpg" alt="Memory 5">
+    <p class="typing" data-text="🌸 Your smile is the best part of my day."></p>
+  </div>
 </section>
+
 
 
 
@@ -294,10 +303,8 @@
     }
 
 
-    // Typing effect for gallery messages
-const typingElements = document.querySelectorAll('.typing');
-
-typingElements.forEach(el => {
+    // Typing effect function
+function typeText(el) {
   const text = el.getAttribute('data-text');
   let index = 0;
 
@@ -305,24 +312,33 @@ typingElements.forEach(el => {
     if (index < text.length) {
       el.textContent += text.charAt(index);
       index++;
-      setTimeout(type, 50); // typing speed
+      setTimeout(type, 40); // typing speed
     }
   }
 
   type();
-});
+}
 
-// Reveal gallery on scroll
-// const blocks = document.querySelectorAll('.gallery-block');
-// window.addEventListener('scroll', () => {
-//   blocks.forEach(block => {
-//     const rect = block.getBoundingClientRect();
-//     if (rect.top < window.innerHeight - 100) {
-//       block.style.opacity = 1;
-//       block.style.transform = "translateY(0)";
-//     }
-//   });
-// });
+// Reveal gallery and start typing when visible
+const blocks = document.querySelectorAll('.gallery-block');
+
+function revealOnScroll() {
+  blocks.forEach(block => {
+    const rect = block.getBoundingClientRect();
+    const typingEl = block.querySelector('.typing');
+
+    if (rect.top < window.innerHeight - 100 && block.style.opacity == 0) {
+      block.style.opacity = 1;
+      block.style.transform = "translateY(0)";
+      typeText(typingEl);
+    }
+  });
+}
+
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll); // trigger on page load
+
+
 
   </script>
 </body>
