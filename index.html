@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For Bless ❤️</title>
+  <title>❤️❤️❤️</title>
   <style>
     /* Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -203,6 +203,22 @@
   100% { transform: translateY(0) scale(1); }
 }
 
+.typing {
+  font-size: 0.9rem;
+  color: #ddd;
+  text-align: left;
+  min-height: 1.2em; /* to prevent jumping */
+  white-space: pre-wrap;
+  overflow: hidden;
+  border-right: 2px solid #ff4d6d;
+  animation: blinkCursor 0.7s step-end infinite;
+}
+
+@keyframes blinkCursor {
+  50% { border-color: transparent; }
+}
+
+
   </style>
 </head>
 <body>
@@ -228,7 +244,7 @@
 <section class="gallery">
   <div class="gallery-block left">
     <img src="assets/img/1.jpg" alt="Memory 1">
-    <p>✨ Our first memory together, I’ll always cherish this moment.</p>
+     <p class="typing" data-text="✨ Our first memory together, I’ll always cherish this moment."></p>
   </div>
   <div class="gallery-block right">
     <img src="assets/img/2.jpg" alt="Memory 2">
@@ -305,6 +321,35 @@ window.addEventListener('scroll', () => {
       block.classList.add("visible");
     }
   });
+});
+
+
+// Typing effect for gallery messages
+const typingElements = document.querySelectorAll('.typing');
+
+typingElements.forEach(el => {
+  const text = el.getAttribute('data-text');
+  let index = 0;
+
+  function type() {
+    if (index < text.length) {
+      el.textContent += text.charAt(index);
+      index++;
+      setTimeout(type, 50); // speed of typing
+    }
+  }
+
+  // Trigger typing when block becomes visible
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        type();
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  observer.observe(el);
 });
 
   </script>
