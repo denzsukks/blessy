@@ -151,11 +151,9 @@
   </div>
 </section>
 
-<audio id="bg-music" autoplay loop muted playsinline>
+<audio id="bg-music" loop>
   <source src="assets/img/kahel.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
 </audio>
-
 
 
 <footer>made with love❤️ by matmat for bless</footer>
@@ -209,6 +207,24 @@
   }
   setInterval(createHeart,600);
 </script>
+<script>
+  window.addEventListener("load", () => {
+    const audio = document.getElementById("bg-music");
 
+    // Try to play right away
+    let playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // If blocked, trick Chrome with a simulated click
+        let hiddenBtn = document.createElement("button");
+        hiddenBtn.style.display = "none";
+        document.body.appendChild(hiddenBtn);
+        hiddenBtn.click();
+        audio.play();
+      });
+    }
+  });
+</script>
 </body>
 </html>
