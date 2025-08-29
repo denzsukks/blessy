@@ -153,7 +153,7 @@
 }
 
 .gallery-block {
-  width: 500px;
+  width: 300px;
   max-width: 90%;
   border-radius: 15px;
   overflow: hidden;
@@ -172,9 +172,17 @@
 }
 
 .gallery-block p {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #ddd;
   text-align: left;
+  min-height: 1.2em;
+  white-space: pre-wrap;
+  border-right: 2px solid #ff4d6d;
+}
+
+.typing::after {
+  content: '';
+  animation: blinkCursor 0.7s step-end infinite;
 }
 
 /* Offsets for artistic look */
@@ -194,6 +202,10 @@
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(60px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blinkCursor {
+  50% { border-color: transparent; }
 }
 
   </style>
@@ -221,15 +233,15 @@
 <section class="gallery">
   <div class="gallery-block left">
     <img src="assets/img/1.jpg" alt="Memory 1">
-    <p>✨ Our first memory together, I’ll always cherish this moment.</p>
+    <p class="typing" data-text="✨ Our first memory together, I’ll always cherish this moment."></p>
   </div>
   <div class="gallery-block right">
     <img src="assets/img/2.jpg" alt="Memory 2">
-    <p>❤️ Even from afar, you make my world brighter.</p>
+    <p class="typing" data-text="❤️ Even from afar, you make my world brighter."></p>
   </div>
   <div class="gallery-block center">
     <img src="assets/img/3.jpg" alt="Memory 3">
-    <p>🌹 Distance means nothing when someone means everything.</p>
+    <p class="typing" data-text="🌹 Distance means nothing when someone means everything."></p>
   </div>
 </section>
 
@@ -237,7 +249,7 @@
 
   <!-- Footer -->
   <footer>
-    Made with ❤️ by Denzel for Bless
+    made with love❤️ by matmat for bless
   </footer>
 
   <!-- Scripts -->
@@ -281,6 +293,24 @@
       showSlides();
     }
 
+
+    // Typing effect for gallery messages
+const typingElements = document.querySelectorAll('.typing');
+
+typingElements.forEach(el => {
+  const text = el.getAttribute('data-text');
+  let index = 0;
+
+  function type() {
+    if (index < text.length) {
+      el.textContent += text.charAt(index);
+      index++;
+      setTimeout(type, 50); // typing speed
+    }
+  }
+
+  type();
+});
 
 // Reveal gallery on scroll
 const blocks = document.querySelectorAll('.gallery-block');
