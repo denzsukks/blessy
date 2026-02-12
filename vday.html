@@ -74,7 +74,7 @@ video {
   box-shadow:0 0 15px rgba(0,150,255,0.5);
 }
 
-/* STORY + MESSAGE */
+/* STORY ROW */
 .story-row {
   display:flex;
   justify-content:center;
@@ -142,7 +142,6 @@ video {
   box-shadow:0 0 25px rgba(0,150,255,0.4);
 }
 
-
 /* HEARTS */
 .heart {
   position:fixed;
@@ -180,8 +179,8 @@ video {
   </div>
 </div>
 
+<!-- STORY ROW -->
 <div class="story-row">
-
   <!-- LEFT STORY -->
   <div class="story-card">
     <div class="story-progress" id="progLeft"></div>
@@ -191,7 +190,7 @@ video {
   <!-- MESSAGE -->
   <div class="message-card">
     <h2>💌 My Love</h2>
-    <p>You are my favorite person and my greatest blessing.</p>
+    <p>You are my favorite person in the world. Every moment with you is special.</p>
   </div>
 
   <!-- RIGHT STORY -->
@@ -199,7 +198,6 @@ video {
     <div class="story-progress" id="progRight"></div>
     <img id="storyRight">
   </div>
-
 </div>
 
 <script>
@@ -239,66 +237,55 @@ function nextVideo(){
   videoPlayer.load();
 }
 
-/* STORY */
-const leftStories = [
-  "assets/story/1.jpg",
-  "assets/story/2.jpg",
-  "assets/story/3.jpg"
-];
+/* STORIES */
+const leftStories=["assets/story/1.jpg","assets/story/2.jpg","assets/story/3.jpg"];
+const rightStories=["assets/story/4.jpg","assets/story/5.jpg","assets/story/6.jpg"];
 
-const rightStories = [
-  "assets/story/4.jpg",
-  "assets/story/5.jpg",
-  "assets/story/6.jpg"
-];
+let leftIndex=0;
+let rightIndex=0;
+const duration=4000;
 
-let leftIndex = 0;
-let rightIndex = 0;
-const duration = 4000;
+const storyLeft=document.getElementById("storyLeft");
+const storyRight=document.getElementById("storyRight");
 
-const storyLeft = document.getElementById("storyLeft");
-const storyRight = document.getElementById("storyRight");
-
-function setupProgress(id, count){
-  const container = document.getElementById(id);
-  container.innerHTML = "";
+function setupProgress(id,count){
+  const container=document.getElementById(id);
+  container.innerHTML="";
   for(let i=0;i<count;i++){
-    const bar = document.createElement("div");
-    bar.innerHTML = "<span></span>";
+    const bar=document.createElement("div");
+    bar.innerHTML="<span></span>";
     container.appendChild(bar);
   }
 }
 
-setupProgress("progLeft", leftStories.length);
-setupProgress("progRight", rightStories.length);
+setupProgress("progLeft",leftStories.length);
+setupProgress("progRight",rightStories.length);
 
-function animateProgress(id, index){
-  const spans = document.querySelectorAll(`#${id} span`);
-  spans.forEach(s => s.style.width = "0%");
-  let width = 0;
-  const interval = setInterval(()=>{
-    if(width >= 100){
-      clearInterval(interval);
-    } else {
-      width++;
-      spans[index].style.width = width + "%";
+function animateProgress(id,index){
+  const spans=document.querySelectorAll(`#${id} span`);
+  spans.forEach(s=>s.style.width="0%");
+  let w=0;
+  const interval=setInterval(()=>{
+    if(w>=100) clearInterval(interval);
+    else{
+      w++;
+      spans[index].style.width=w+"%";
     }
-  }, duration / 100);
+  },duration/100);
 }
 
 function showStories(){
-  storyLeft.src = leftStories[leftIndex];
-  storyRight.src = rightStories[rightIndex];
-
-  animateProgress("progLeft", leftIndex);
-  animateProgress("progRight", rightIndex);
+  storyLeft.src=leftStories[leftIndex];
+  storyRight.src=rightStories[rightIndex];
+  animateProgress("progLeft",leftIndex);
+  animateProgress("progRight",rightIndex);
 }
 
 setInterval(()=>{
-  leftIndex = (leftIndex + 1) % leftStories.length;
-  rightIndex = (rightIndex + 1) % rightStories.length;
+  leftIndex=(leftIndex+1)%leftStories.length;
+  rightIndex=(rightIndex+1)%rightStories.length;
   showStories();
-}, duration);
+},duration);
 
 showStories();
 
@@ -313,7 +300,7 @@ setInterval(()=>{
 },900);
 
 /* SCROLL ANIMATION */
-const cards=document.querySelectorAll(".card,.story-section");
+const cards=document.querySelectorAll(".card,.story-row");
 window.addEventListener("scroll",()=>{
   cards.forEach(c=>{
     const rect=c.getBoundingClientRect();
