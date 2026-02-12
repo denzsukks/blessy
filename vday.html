@@ -2,210 +2,254 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>My Valentine Story 💖</title>
+<title>Happy Valentines 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
 body {
-  background: black;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
+  margin:0;
+  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  font-family: 'Segoe UI', sans-serif;
+  color:white;
 }
 
-/* Progress bar */
-.progress-container {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  display: flex;
-  gap: 5px;
-  z-index: 10;
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
 }
 
-.progress {
-  flex: 1;
-  height: 4px;
-  background: rgba(255,255,255,0.3);
-  overflow: hidden;
-  border-radius: 5px;
+/* CARD */
+.card {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 0 25px rgba(255,0,100,0.3);
 }
 
-.progress span {
-  display: block;
-  height: 100%;
-  width: 0%;
-  background: white;
+/* TITLE CARD */
+.title {
+  text-align:center;
+}
+.title h1 {
+  font-size:2rem;
+}
+.title p {
+  margin-top:10px;
 }
 
-/* Story */
-.story {
-  width: 100vw;
-  height: 100vh;
+/* VIDEO PLAYER */
+.video-wrapper video {
+  width:100%;
+  border-radius:15px;
+}
+
+.playlist {
+  margin-top:15px;
+}
+
+.playlist div {
+  padding:10px;
+  border-bottom:1px solid rgba(255,255,255,0.2);
+  cursor:pointer;
+}
+
+.playlist div:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* STORY */
+.story-card {
   position: relative;
+  height: 350px;
+  overflow: hidden;
+  border-radius:15px;
 }
 
-.story img, .story video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.story-card img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-/* Caption */
-.caption {
-  position: absolute;
-  bottom: 60px;
-  width: 100%;
-  text-align: center;
-  color: white;
-  font-size: 1.1rem;
-  padding: 10px;
-  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+.story-progress {
+  display:flex;
+  gap:5px;
+  position:absolute;
+  top:10px;
+  left:10px;
+  right:10px;
 }
 
-/* Tap areas */
-.tap {
-  position: absolute;
+.story-progress div {
+  flex:1;
+  height:4px;
+  background: rgba(255,255,255,0.4);
+}
+
+.story-progress span {
+  display:block;
+  height:100%;
+  width:0%;
+  background:white;
+}
+
+.story-tap {
+  position:absolute;
   top:0;
   bottom:0;
-  width: 50%;
+  width:50%;
 }
 
-.tap.left { left:0; }
-.tap.right { right:0; }
+.story-tap.left { left:0; }
+.story-tap.right { right:0; }
 
 /* Floating hearts */
 .heart {
   position: fixed;
-  bottom: -20px;
-  font-size: 20px;
-  color: pink;
-  animation: floatUp 5s linear infinite;
-  opacity:0.8;
+  bottom:-20px;
+  font-size:20px;
+  color:#ffb6c1;
+  animation: floatUp 6s linear infinite;
 }
 
 @keyframes floatUp {
-  from { transform: translateY(0); opacity:1; }
-  to { transform: translateY(-100vh); opacity:0; }
+  from { transform:translateY(0); opacity:1; }
+  to { transform:translateY(-100vh); opacity:0; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Background Music -->
-<audio id="bg-music" autoplay loop>
-  <source src="assets/img/kahel.mp3" type="audio/mpeg">
+<audio id="bgMusic" autoplay loop>
+  <source src="assets/music.mp3" type="audio/mpeg">
 </audio>
 
-<div class="progress-container" id="progressContainer"></div>
+<div class="container">
 
-<div class="story" id="storyContainer"></div>
+  <!-- CARD 1 -->
+  <div class="card title">
+    <h1>HAPPY VALENTINES MY ONE OF ONE ❤️</h1>
+    <p>
+      Even though distance separates us, nothing can stop me from loving you.  
+      This is my little surprise for you 💖
+    </p>
+  </div>
 
-<div class="tap left" onclick="prevStory()"></div>
-<div class="tap right" onclick="nextStory()"></div>
+  <!-- CARD 2 VIDEO -->
+  <div class="card">
+    <h2>🎥 Our Videos</h2>
+    <div class="video-wrapper">
+      <video id="videoPlayer" controls></video>
+    </div>
+
+    <div class="playlist">
+      <div onclick="playVideo('assets/videos/v1.mp4')">💖 Video 1</div>
+      <div onclick="playVideo('assets/videos/v2.mp4')">💖 Video 2</div>
+      <div onclick="playVideo('assets/videos/v3.mp4')">💖 Video 3</div>
+      <div onclick="playVideo('assets/videos/v4.mp4')">💖 Video 4</div>
+    </div>
+  </div>
+
+  <!-- CARD 3 STORY -->
+  <div class="card">
+    <h2>📸 Our Memories</h2>
+
+    <div class="story-card" id="storyCard">
+      <div class="story-progress" id="storyProgress"></div>
+      <img id="storyImg">
+      <div class="story-tap left" onclick="prevStory()"></div>
+      <div class="story-tap right" onclick="nextStory()"></div>
+    </div>
+  </div>
+
+</div>
 
 <script>
-const stories = [
-  { type: "image", src: "assets/story/1.jpg", caption: "Our first memory 💖" },
-  { type: "image", src: "assets/story/2.jpg", caption: "You make me smile every day 😘" },
-  { type: "video", src: "assets/story/3.mp4", caption: "My favorite moment with you 🎥" },
-  { type: "image", src: "assets/story/4.jpg", caption: "Forever us ❤️" }
+/* BACKGROUND MUSIC CONTROL */
+const bgMusic = document.getElementById("bgMusic");
+const videoPlayer = document.getElementById("videoPlayer");
+
+videoPlayer.addEventListener("play", ()=> bgMusic.pause());
+videoPlayer.addEventListener("pause", ()=> bgMusic.play());
+videoPlayer.addEventListener("ended", ()=> bgMusic.play());
+
+function playVideo(src){
+  videoPlayer.src = src;
+  videoPlayer.play();
+}
+
+/* STORY */
+const storyImages = [
+  "assets/story/1.jpg",
+  "assets/story/2.jpg",
+  "assets/story/3.jpg",
+  "assets/story/4.jpg",
+  "assets/story/5.jpg",
+  "assets/story/6.jpg"
 ];
 
-let current = 0;
-let timer;
-const duration = 5000; // 5 seconds per story
+let storyIndex = 0;
+let storyTimer;
+const storyDuration = 4000;
 
-const storyContainer = document.getElementById("storyContainer");
-const progressContainer = document.getElementById("progressContainer");
+const storyImg = document.getElementById("storyImg");
+const storyProgress = document.getElementById("storyProgress");
 
-function setupProgress() {
-  progressContainer.innerHTML = "";
-  stories.forEach(() => {
-    const bar = document.createElement("div");
-    bar.classList.add("progress");
-    bar.innerHTML = "<span></span>";
-    progressContainer.appendChild(bar);
-  });
+storyImages.forEach(()=>{
+  const bar = document.createElement("div");
+  bar.innerHTML = "<span></span>";
+  storyProgress.appendChild(bar);
+});
+
+function showStory(){
+  clearInterval(storyTimer);
+  storyImg.src = storyImages[storyIndex];
+  animateStoryProgress(storyIndex);
+  storyTimer = setTimeout(nextStory, storyDuration);
 }
 
-function showStory(index) {
-  clearInterval(timer);
-  storyContainer.innerHTML = "";
-
-  const story = stories[index];
-  let element;
-
-  if (story.type === "image") {
-    element = document.createElement("img");
-    element.src = story.src;
-  } else {
-    element = document.createElement("video");
-    element.src = story.src;
-    element.autoplay = true;
-    element.muted = true;
-    element.loop = false;
-  }
-
-  const caption = document.createElement("div");
-  caption.className = "caption";
-  caption.textContent = story.caption;
-
-  storyContainer.appendChild(element);
-  storyContainer.appendChild(caption);
-
-  animateProgress(index);
-
-  timer = setTimeout(nextStory, duration);
-}
-
-function animateProgress(index) {
-  const bars = document.querySelectorAll(".progress span");
-  bars.forEach(bar => bar.style.width = "0%");
-  let width = 0;
-  const interval = setInterval(() => {
-    if (width >= 100) {
-      clearInterval(interval);
-    } else {
-      width += 1;
-      bars[index].style.width = width + "%";
+function animateStoryProgress(i){
+  const spans = document.querySelectorAll(".story-progress span");
+  spans.forEach(s=>s.style.width="0%");
+  let w=0;
+  const interval=setInterval(()=>{
+    if(w>=100) clearInterval(interval);
+    else{
+      w++;
+      spans[i].style.width=w+"%";
     }
-  }, duration / 100);
+  },storyDuration/100);
 }
 
-function nextStory() {
-  current++;
-  if (current >= stories.length) current = 0;
-  showStory(current);
+function nextStory(){
+  storyIndex++;
+  if(storyIndex>=storyImages.length) storyIndex=0;
+  showStory();
 }
 
-function prevStory() {
-  current--;
-  if (current < 0) current = stories.length - 1;
-  showStory(current);
+function prevStory(){
+  storyIndex--;
+  if(storyIndex<0) storyIndex=storyImages.length-1;
+  showStory();
 }
 
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.textContent = "❤";
-  heart.style.left = Math.random()*100+"vw";
-  heart.style.animationDuration = (3+Math.random()*3)+"s";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),6000);
+showStory();
+
+/* HEARTS */
+function createHeart(){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent="❤";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(3+Math.random()*3)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
 }
-
-setInterval(createHeart, 600);
-
-setupProgress();
-showStory(current);
+setInterval(createHeart,700);
 </script>
 
 </body>
