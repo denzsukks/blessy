@@ -16,7 +16,7 @@ body {
 .container {
   max-width: 900px;
   margin: auto;
-  padding: 40px 20px;
+  padding: 60px 20px;
 }
 
 /* CARD */
@@ -24,8 +24,8 @@ body {
   background: rgba(20,40,80,0.4);
   backdrop-filter: blur(12px);
   border-radius: 20px;
-  padding: 25px;
-  margin-bottom: 50px;
+  padding: 30px;
+  margin-bottom: 120px; /* MUCH MORE SPACE */
   box-shadow: 0 0 25px rgba(0,150,255,0.4),
               0 0 60px rgba(0,150,255,0.2);
 }
@@ -49,7 +49,7 @@ body {
 }
 
 .playlist {
-  margin-top:20px;
+  margin-top:25px;
 }
 
 .playlist div {
@@ -62,19 +62,20 @@ body {
   background: rgba(0,150,255,0.2);
 }
 
-/* STORY PORTRAIT */
+/* STORY PORTRAIT ONLY (NO OUTER CARD) */
 .story-container {
   display:flex;
   justify-content:center;
+  margin-bottom: 120px; /* BIG SPACE AFTER STORY */
 }
 
 .story-card {
   position: relative;
   width: 260px;
-  height: 460px; /* PORTRAIT MODE */
+  height: 460px;
   border-radius:20px;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0,150,255,0.6);
+  box-shadow: 0 0 25px rgba(0,150,255,0.7);
 }
 
 .story-card img {
@@ -163,20 +164,16 @@ body {
     </div>
   </div>
 
-  <!-- CARD 3 STORY -->
-  <div class="card">
-    <h2>📸 Our Memories</h2>
+</div>
 
-    <div class="story-container">
-      <div class="story-card" id="storyCard">
-        <div class="story-progress" id="storyProgress"></div>
-        <img id="storyImg">
-        <div class="story-tap left" onclick="prevStory()"></div>
-        <div class="story-tap right" onclick="nextStory()"></div>
-      </div>
-    </div>
+<!-- STORY (NO OUTER CARD) -->
+<div class="story-container">
+  <div class="story-card" id="storyCard">
+    <div class="story-progress" id="storyProgress"></div>
+    <img id="storyImg">
+    <div class="story-tap left" onclick="prevStory()"></div>
+    <div class="story-tap right" onclick="nextStory()"></div>
   </div>
-
 </div>
 
 <script>
@@ -260,7 +257,7 @@ function createHeart(){
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
 }
-setInterval(createHeart,800);
+setInterval(createHeart,900);
 </script>
 
 </body>
