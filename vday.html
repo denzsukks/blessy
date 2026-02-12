@@ -8,39 +8,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
 body {
-  margin:0;
-  background: radial-gradient(circle at top, rgba(20,40,80,0.85), #020b1a);
-  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, rgba(20,40,80,0.8), #020b1a);
+  font-family: Arial, sans-serif;
   color:white;
-}
-
-/* FULLSCREEN ENVELOPE */
-#envelope {
-  position: fixed;
-  inset: 0;
-  background: #020b1a;
-  z-index: 9999;
-  overflow: hidden;
-}
-
-.envelope {
-  width: 100%;
-  height: 100%;
-  background: #123c7a;
-  animation: openEnvelope 2.5s forwards ease-in-out;
-}
-
-@keyframes openEnvelope {
-  0%   { clip-path: inset(0 0 0 0); }
-  100% { clip-path: inset(0 0 100% 0); }
-}
-
-/* TYPE TEXT */
-.type-text {
-  font-family: 'Pacifico', cursive;
-  font-size:2.5rem;
-  text-align:center;
 }
 
 /* CARD */
@@ -49,21 +22,38 @@ body {
   backdrop-filter: blur(12px);
   border-radius: 20px;
   padding: 25px;
-  margin: 160px auto;
+  margin: 200px auto;
   max-width: 1000px;
-  box-shadow: 0 0 25px rgba(0,150,255,0.5),
-              0 0 60px rgba(0,150,255,0.2);
+  box-shadow: 0 0 20px rgba(0,150,255,0.2);
+  opacity:0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
+
+.card.show {
+  opacity:1;
+  transform: translateY(0);
+  box-shadow: 0 0 35px rgba(0,150,255,0.6);
+}
+
+/* TEXT */
+.type-text {
+  font-family: 'Pacifico', cursive;
+  font-size:2.5rem;
+  text-align:center;
 }
 
 /* VIDEO */
 .video-layout {
   display:flex;
   align-items:center;
+  justify-content:center;
+  gap:20px;
 }
 
 .video-wrapper {
-  width:650px;
-  height:360px;
+  width:720px;
+  height:405px;
 }
 
 video {
@@ -73,25 +63,33 @@ video {
   background:black;
 }
 
-.playlist {
-  display:flex;
-  flex-direction:column;
-  margin-left:8px;
-}
-
-.playlist div {
-  font-size:1.4rem;
-  padding:12px;
+.next-btn {
+  padding:12px 20px;
+  background:#1e90ff;
+  border:none;
+  border-radius:12px;
+  color:white;
   cursor:pointer;
+  font-size:1rem;
+  box-shadow:0 0 15px rgba(0,150,255,0.5);
 }
 
-/* STORY SECTION */
+/* STORY + MESSAGE */
 .story-section {
   display:flex;
+  justify-content:center;
   align-items:center;
-  gap:30px;
-  margin:160px auto;
+  gap:40px;
+  margin:200px auto;
   max-width:1000px;
+  opacity:0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
+
+.story-section.show {
+  opacity:1;
+  transform: translateY(0);
 }
 
 .story-card {
@@ -99,7 +97,6 @@ video {
   height:460px;
   border-radius:20px;
   overflow:hidden;
-  position:relative;
   box-shadow:0 0 25px rgba(0,150,255,0.6);
 }
 
@@ -117,38 +114,6 @@ video {
   border-radius:20px;
   box-shadow:0 0 25px rgba(0,150,255,0.4);
 }
-
-.story-progress {
-  display:flex;
-  gap:4px;
-  position:absolute;
-  top:10px;
-  left:10px;
-  right:10px;
-}
-
-.story-progress div {
-  flex:1;
-  height:4px;
-  background:rgba(255,255,255,0.3);
-}
-
-.story-progress span {
-  display:block;
-  height:100%;
-  width:0%;
-  background:white;
-}
-
-.story-tap {
-  position:absolute;
-  top:0;
-  bottom:0;
-  width:50%;
-}
-
-.story-tap.left { left:0; }
-.story-tap.right { right:0; }
 
 /* HEARTS */
 .heart {
@@ -168,59 +133,33 @@ video {
 
 <body>
 
-<div id="envelope">
-  <div class="envelope"></div>
-</div>
-
 <audio id="bgMusic" autoplay loop>
-  <source src="assets/kahel.mp3" type="audio/mpeg">
+  <source src="assets/img/kahel.mp3" type="audio/mpeg">
 </audio>
 
+<!-- TEXT CARD -->
 <div class="card">
   <div class="type-text" id="typeText"></div>
 </div>
 
+<!-- VIDEO CARD -->
 <div class="card">
   <div class="video-layout">
     <div class="video-wrapper">
-      <video id="videoPlayer"></video>
+      <video id="videoPlayer" controls></video>
     </div>
-    <div class="playlist">
-      <div onclick="playVideo('assets/videos/v1.mp4')">📹</div>
-      <div onclick="playVideo('assets/videos/v2.mp4')">📹</div>
-      <div onclick="playVideo('assets/videos/v3.mp4')">📹</div>
-      <div onclick="playVideo('assets/videos/v4.mp4')">📹</div>
-    </div>
+    <button class="next-btn" onclick="nextVideo()">Next Video ▶</button>
   </div>
 </div>
 
-<!-- STORY 1 -->
+<!-- STORY SECTION -->
 <div class="story-section">
   <div class="story-card">
-    <div class="story-progress" id="prog1"></div>
-    <img id="story1">
-    <div class="story-tap left" onclick="prevStory(1)"></div>
-    <div class="story-tap right" onclick="nextStory(1)"></div>
+    <img id="storyImg">
   </div>
-
   <div class="message-card">
     <h2>💌 My Love</h2>
-    <p>You are my favorite notification. My safe place. My person.</p>
-  </div>
-</div>
-
-<!-- STORY 2 -->
-<div class="story-section">
-  <div class="message-card">
-    <h2>💖 Always</h2>
-    <p>No matter what happens, I will always choose you.</p>
-  </div>
-
-  <div class="story-card">
-    <div class="story-progress" id="prog2"></div>
-    <img id="story2">
-    <div class="story-tap left" onclick="prevStory(2)"></div>
-    <div class="story-tap right" onclick="nextStory(2)"></div>
+    <p>You are my favorite person in the world. Every moment with you is special.</p>
   </div>
 </div>
 
@@ -242,70 +181,37 @@ type();
 const bgMusic=document.getElementById("bgMusic");
 const videoPlayer=document.getElementById("videoPlayer");
 
-function playVideo(src){
-  videoPlayer.src=src;
-  videoPlayer.muted=false;
-  videoPlayer.play();
-  bgMusic.pause();
-}
+const videos=[
+  "assets/videos/v1.mp4",
+  "assets/videos/v2.mp4",
+  "assets/videos/v3.mp4",
+  "assets/videos/v4.mp4"
+];
+let vidIndex=0;
 
+videoPlayer.src=videos[0];
+
+videoPlayer.onplay=()=>bgMusic.pause();
 videoPlayer.onended=()=>bgMusic.play();
 
-/* STORY LOGIC */
-const stories1=["assets/story/1.jpg","assets/story/2.jpg","assets/story/3.jpg"];
-const stories2=["assets/story/4.jpg","assets/story/5.jpg","assets/story/6.jpg"];
-
-let index1=0,index2=0;
-const dur=4000;
-
-function setupProgress(id,count){
-  const p=document.getElementById(id);
-  for(let i=0;i<count;i++){
-    const d=document.createElement("div");
-    d.innerHTML="<span></span>";
-    p.appendChild(d);
-  }
+function nextVideo(){
+  vidIndex=(vidIndex+1)%videos.length;
+  videoPlayer.src=videos[vidIndex];
+  videoPlayer.load();
 }
 
-setupProgress("prog1",stories1.length);
-setupProgress("prog2",stories2.length);
+/* STORY */
+const storyImgs=["assets/story/1.jpg","assets/story/2.jpg","assets/story/3.jpg"];
+let storyIndex=0;
+const storyImg=document.getElementById("storyImg");
+storyImg.src=storyImgs[0];
 
-function showStory(set){
-  let img,arr,index;
-  if(set===1){ img=story1; arr=stories1; index=index1;}
-  else { img=story2; arr=stories2; index=index2;}
+setInterval(()=>{
+  storyIndex=(storyIndex+1)%storyImgs.length;
+  storyImg.src=storyImgs[storyIndex];
+},4000);
 
-  img.src=arr[index];
-  animateProgress(set,index);
-}
-
-function animateProgress(set,i){
-  const spans=document.querySelectorAll(`#prog${set} span`);
-  spans.forEach(s=>s.style.width="0%");
-  let w=0;
-  const interval=setInterval(()=>{
-    if(w>=100) clearInterval(interval);
-    else{
-      w++;
-      spans[i].style.width=w+"%";
-    }
-  },dur/100);
-}
-
-function nextStory(set){
-  if(set===1){ index1=(index1+1)%stories1.length; showStory(1);}
-  else{ index2=(index2+1)%stories2.length; showStory(2);}
-}
-
-function prevStory(set){
-  if(set===1){ index1=(index1-1+stories1.length)%stories1.length; showStory(1);}
-  else{ index2=(index2-1+stories2.length)%stories2.length; showStory(2);}
-}
-
-showStory(1);
-showStory(2);
-
-/* HEARTS */
+/* FLOATING HEARTS */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
@@ -314,16 +220,18 @@ setInterval(()=>{
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
 },900);
+
+/* SCROLL ANIMATION */
+const cards=document.querySelectorAll(".card,.story-section");
+window.addEventListener("scroll",()=>{
+  cards.forEach(c=>{
+    const rect=c.getBoundingClientRect();
+    if(rect.top<window.innerHeight-100){
+      c.classList.add("show");
+    }
+  });
+});
 </script>
-
-<script>
-const envelope = document.getElementById("envelope");
-
-setTimeout(() => {
-  envelope.style.display = "none";
-}, 2600); // must match animation duration
-</script>
-
 
 </body>
 </html>
