@@ -11,12 +11,54 @@ body {
   background: radial-gradient(circle at top, rgba(20,40,80,0.9), #020b1a);
   font-family: 'Segoe UI', sans-serif;
   color:white;
+  overflow-x:hidden;
+}
+
+/* ENVELOPE INTRO */
+#envelope {
+  position: fixed;
+  inset: 0;
+  background: #020b1a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  animation: openEnvelope 2s ease forwards;
+}
+
+.envelope-card {
+  width:300px;
+  height:200px;
+  background:#1a3a6e;
+  position:relative;
+  border-radius:10px;
+  box-shadow:0 0 30px rgba(0,150,255,0.7);
+}
+
+.envelope-flap {
+  position:absolute;
+  top:0;
+  width:100%;
+  height:50%;
+  background:#255aa5;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  animation: flap 2s ease forwards;
+}
+
+@keyframes flap {
+  0% { transform: rotateX(0); }
+  100% { transform: rotateX(180deg); }
+}
+
+@keyframes openEnvelope {
+  0% { opacity:1; }
+  100% { opacity:0; visibility:hidden; }
 }
 
 .container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
-  padding: 60px 20px;
+  padding: 80px 20px;
 }
 
 /* CARD */
@@ -25,7 +67,7 @@ body {
   backdrop-filter: blur(12px);
   border-radius: 20px;
   padding: 30px;
-  margin-bottom: 120px; /* MUCH MORE SPACE */
+  margin-bottom: 140px;
   box-shadow: 0 0 25px rgba(0,150,255,0.4),
               0 0 60px rgba(0,150,255,0.2);
 }
@@ -34,39 +76,52 @@ body {
 .title {
   text-align:center;
 }
-.title h1 {
-  font-size:2rem;
-}
-.title p {
-  margin-top:15px;
+
+/* VIDEO CARD */
+.video-layout {
+  display:flex;
+  gap:20px;
 }
 
-/* VIDEO PLAYER */
+.video-wrapper {
+  width:500px;
+  height:280px;
+}
+
 .video-wrapper video {
   width:100%;
+  height:100%;
   border-radius:15px;
   background:black;
 }
 
 .playlist {
-  margin-top:25px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:15px;
 }
 
 .playlist div {
   padding:12px;
-  border-bottom:1px solid rgba(255,255,255,0.2);
+  border-radius:10px;
   cursor:pointer;
+  background: rgba(0,150,255,0.2);
+  text-align:center;
+  font-size:1.3rem;
 }
 
 .playlist div:hover {
-  background: rgba(0,150,255,0.2);
+  background: rgba(0,150,255,0.4);
 }
 
-/* STORY PORTRAIT ONLY (NO OUTER CARD) */
-.story-container {
+/* STORY + MESSAGE */
+.story-section {
   display:flex;
-  justify-content:center;
-  margin-bottom: 120px; /* BIG SPACE AFTER STORY */
+  justify-content:space-between;
+  align-items:center;
+  gap:40px;
+  margin-bottom:140px;
 }
 
 .story-card {
@@ -116,6 +171,16 @@ body {
 .story-tap.left { left:0; }
 .story-tap.right { right:0; }
 
+/* MESSAGE CARD */
+.message-card {
+  flex:1;
+  background: rgba(20,40,80,0.4);
+  padding:30px;
+  border-radius:20px;
+  box-shadow: 0 0 25px rgba(0,150,255,0.4),
+              0 0 60px rgba(0,150,255,0.2);
+}
+
 /* Hearts */
 .heart {
   position: fixed;
@@ -134,46 +199,62 @@ body {
 
 <body>
 
+<div id="envelope">
+  <div class="envelope-card">
+    <div class="envelope-flap"></div>
+  </div>
+</div>
+
 <audio id="bgMusic" autoplay loop>
   <source src="assets/music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
 
-  <!-- CARD 1 -->
+  <!-- TITLE -->
   <div class="card title">
     <h1>HAPPY VALENTINES MY ONE OF ONE 💙</h1>
-    <p>
-      Even though distance separates us, my heart is always with you.  
-      This is my little digital hug for you 🫶
-    </p>
+    <p>Even though distance separates us, my heart is always with you.</p>
   </div>
 
-  <!-- CARD 2 VIDEO -->
+  <!-- VIDEO -->
   <div class="card">
     <h2>🎥 Our Videos</h2>
-    <div class="video-wrapper">
-      <video id="videoPlayer" controls></video>
-    </div>
-
-    <div class="playlist">
-      <div onclick="playVideo('assets/videos/v1.mp4')">💙 Video 1</div>
-      <div onclick="playVideo('assets/videos/v2.mp4')">💙 Video 2</div>
-      <div onclick="playVideo('assets/videos/v3.mp4')">💙 Video 3</div>
-      <div onclick="playVideo('assets/videos/v4.mp4')">💙 Video 4</div>
+    <div class="video-layout">
+      <div class="video-wrapper">
+        <video id="videoPlayer" controls></video>
+      </div>
+      <div class="playlist">
+        <div onclick="playVideo('assets/videos/v1.mp4')">📹</div>
+        <div onclick="playVideo('assets/videos/v2.mp4')">📹</div>
+        <div onclick="playVideo('assets/videos/v3.mp4')">📹</div>
+        <div onclick="playVideo('assets/videos/v4.mp4')">📹</div>
+      </div>
     </div>
   </div>
 
 </div>
 
-<!-- STORY (NO OUTER CARD) -->
-<div class="story-container">
-  <div class="story-card" id="storyCard">
+<!-- STORY + MESSAGE -->
+<div class="story-section">
+
+  <div class="story-card">
     <div class="story-progress" id="storyProgress"></div>
     <img id="storyImg">
     <div class="story-tap left" onclick="prevStory()"></div>
     <div class="story-tap right" onclick="nextStory()"></div>
   </div>
+
+  <div class="message-card">
+    <h2>💌 For You</h2>
+    <p>
+      Every photo here reminds me why I fell for you.  
+      No matter how far apart we are, my love never leaves your side.  
+      Thank you for choosing me every day.  
+      I will always choose you too. 💙
+    </p>
+  </div>
+
 </div>
 
 <script>
