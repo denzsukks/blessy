@@ -66,26 +66,22 @@ body {
   background: rgba(20,40,80,0.4);
   backdrop-filter: blur(12px);
   border-radius: 20px;
-  padding: 30px;
+  padding: 20px;
   margin-bottom: 140px;
   box-shadow: 0 0 25px rgba(0,150,255,0.4),
               0 0 60px rgba(0,150,255,0.2);
 }
 
-/* TITLE CARD */
-.title {
-  text-align:center;
-}
-
 /* VIDEO CARD */
 .video-layout {
   display:flex;
-  gap:20px;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .video-wrapper {
-  width:500px;
-  height:280px;
+  width:580px;
+  height:330px;
 }
 
 .video-wrapper video {
@@ -99,7 +95,8 @@ body {
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:15px;
+  gap:12px;
+  margin-left:10px;
 }
 
 .playlist div {
@@ -118,10 +115,11 @@ body {
 /* STORY + MESSAGE */
 .story-section {
   display:flex;
-  justify-content:space-between;
+  justify-content:flex-start;
   align-items:center;
-  gap:40px;
+  gap:30px;
   margin-bottom:140px;
+  padding-left:60px;
 }
 
 .story-card {
@@ -139,6 +137,17 @@ body {
   object-fit:cover;
 }
 
+.message-card {
+  width:340px;
+  height:460px;
+  background: rgba(20,40,80,0.4);
+  padding:25px;
+  border-radius:20px;
+  box-shadow: 0 0 25px rgba(0,150,255,0.4),
+              0 0 60px rgba(0,150,255,0.2);
+}
+
+/* STORY PROGRESS */
 .story-progress {
   display:flex;
   gap:4px;
@@ -171,16 +180,6 @@ body {
 .story-tap.left { left:0; }
 .story-tap.right { right:0; }
 
-/* MESSAGE CARD */
-.message-card {
-  flex:1;
-  background: rgba(20,40,80,0.4);
-  padding:30px;
-  border-radius:20px;
-  box-shadow: 0 0 25px rgba(0,150,255,0.4),
-              0 0 60px rgba(0,150,255,0.2);
-}
-
 /* Hearts */
 .heart {
   position: fixed;
@@ -211,18 +210,12 @@ body {
 
 <div class="container">
 
-  <!-- TITLE -->
-  <div class="card title">
-    <h1>HAPPY VALENTINES MY ONE OF ONE 💙</h1>
-    <p>Even though distance separates us, my heart is always with you.</p>
-  </div>
-
   <!-- VIDEO -->
   <div class="card">
     <h2>🎥 Our Videos</h2>
     <div class="video-layout">
       <div class="video-wrapper">
-        <video id="videoPlayer" controls></video>
+        <video id="videoPlayer" muted></video>
       </div>
       <div class="playlist">
         <div onclick="playVideo('assets/videos/v1.mp4')">📹</div>
@@ -250,35 +243,31 @@ body {
     <p>
       Every photo here reminds me why I fell for you.  
       No matter how far apart we are, my love never leaves your side.  
-      Thank you for choosing me every day.  
-      I will always choose you too. 💙
+      I will always choose you. 💙
     </p>
   </div>
 
 </div>
 
 <script>
-/* MUSIC CONTROL */
 const bgMusic = document.getElementById("bgMusic");
 const videoPlayer = document.getElementById("videoPlayer");
 
-videoPlayer.addEventListener("play", ()=> bgMusic.pause());
-videoPlayer.addEventListener("pause", ()=> bgMusic.play());
-videoPlayer.addEventListener("ended", ()=> bgMusic.play());
-
 function playVideo(src){
   videoPlayer.src = src;
+  videoPlayer.autoplay = true;
   videoPlayer.play();
+  bgMusic.pause();
 }
+
+videoPlayer.addEventListener("ended", ()=> bgMusic.play());
 
 /* STORY */
 const storyImages = [
   "assets/story/1.jpg",
   "assets/story/2.jpg",
   "assets/story/3.jpg",
-  "assets/story/4.jpg",
-  "assets/story/5.jpg",
-  "assets/story/6.jpg"
+  "assets/story/4.jpg"
 ];
 
 let storyIndex = 0;
@@ -295,7 +284,7 @@ storyImages.forEach(()=>{
 });
 
 function showStory(){
-  clearInterval(storyTimer);
+  clearTimeout(storyTimer);
   storyImg.src = storyImages[storyIndex];
   animateStoryProgress(storyIndex);
   storyTimer = setTimeout(nextStory, storyDuration);
