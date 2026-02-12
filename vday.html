@@ -5,60 +5,44 @@
 <title>Happy Valentines 💙</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
 <style>
 body {
   margin:0;
-  background: radial-gradient(circle at top, rgba(20,40,80,0.9), #020b1a);
+  background: radial-gradient(circle at top, rgba(20,40,80,0.85), #020b1a);
   font-family: 'Segoe UI', sans-serif;
   color:white;
-  overflow-x:hidden;
 }
 
-/* ENVELOPE INTRO */
+/* FULLSCREEN ENVELOPE */
 #envelope {
   position: fixed;
   inset: 0;
   background: #020b1a;
+  z-index:9999;
   display:flex;
   align-items:center;
   justify-content:center;
-  z-index:9999;
-  animation: openEnvelope 2s ease forwards;
 }
 
-.envelope-card {
-  width:300px;
-  height:200px;
-  background:#1a3a6e;
-  position:relative;
-  border-radius:10px;
-  box-shadow:0 0 30px rgba(0,150,255,0.7);
-}
-
-.envelope-flap {
-  position:absolute;
-  top:0;
+.envelope {
   width:100%;
-  height:50%;
-  background:#255aa5;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  animation: flap 2s ease forwards;
-}
-
-@keyframes flap {
-  0% { transform: rotateX(0); }
-  100% { transform: rotateX(180deg); }
+  height:100%;
+  background:#123c7a;
+  animation: openEnvelope 2.5s forwards;
 }
 
 @keyframes openEnvelope {
-  0% { opacity:1; }
-  100% { opacity:0; visibility:hidden; }
+  0% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 100% 0); }
 }
 
-.container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 80px 20px;
+/* TYPE TEXT */
+.type-text {
+  font-family: 'Pacifico', cursive;
+  font-size:2.5rem;
+  text-align:center;
 }
 
 /* CARD */
@@ -66,25 +50,25 @@ body {
   background: rgba(20,40,80,0.4);
   backdrop-filter: blur(12px);
   border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 140px;
-  box-shadow: 0 0 25px rgba(0,150,255,0.4),
+  padding: 25px;
+  margin: 160px auto;
+  max-width: 1000px;
+  box-shadow: 0 0 25px rgba(0,150,255,0.5),
               0 0 60px rgba(0,150,255,0.2);
 }
 
-/* VIDEO CARD */
+/* VIDEO */
 .video-layout {
   display:flex;
-  justify-content:space-between;
   align-items:center;
 }
 
 .video-wrapper {
-  width:580px;
-  height:330px;
+  width:650px;
+  height:360px;
 }
 
-.video-wrapper video {
+video {
   width:100%;
   height:100%;
   border-radius:15px;
@@ -94,41 +78,31 @@ body {
 .playlist {
   display:flex;
   flex-direction:column;
-  justify-content:center;
-  gap:12px;
-  margin-left:10px;
+  margin-left:8px;
 }
 
 .playlist div {
+  font-size:1.4rem;
   padding:12px;
-  border-radius:10px;
   cursor:pointer;
-  background: rgba(0,150,255,0.2);
-  text-align:center;
-  font-size:1.3rem;
 }
 
-.playlist div:hover {
-  background: rgba(0,150,255,0.4);
-}
-
-/* STORY + MESSAGE */
+/* STORY SECTION */
 .story-section {
   display:flex;
-  justify-content:flex-start;
   align-items:center;
   gap:30px;
-  margin-bottom:140px;
-  padding-left:60px;
+  margin:160px auto;
+  max-width:1000px;
 }
 
 .story-card {
-  position: relative;
-  width: 260px;
-  height: 460px;
+  width:260px;
+  height:460px;
   border-radius:20px;
-  overflow: hidden;
-  box-shadow: 0 0 25px rgba(0,150,255,0.7);
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 0 25px rgba(0,150,255,0.6);
 }
 
 .story-card img {
@@ -138,16 +112,14 @@ body {
 }
 
 .message-card {
-  width:340px;
+  width:360px;
   height:460px;
   background: rgba(20,40,80,0.4);
   padding:25px;
   border-radius:20px;
-  box-shadow: 0 0 25px rgba(0,150,255,0.4),
-              0 0 60px rgba(0,150,255,0.2);
+  box-shadow:0 0 25px rgba(0,150,255,0.4);
 }
 
-/* STORY PROGRESS */
 .story-progress {
   display:flex;
   gap:4px;
@@ -160,7 +132,7 @@ body {
 .story-progress div {
   flex:1;
   height:4px;
-  background: rgba(255,255,255,0.3);
+  background:rgba(255,255,255,0.3);
 }
 
 .story-progress span {
@@ -180,9 +152,9 @@ body {
 .story-tap.left { left:0; }
 .story-tap.right { right:0; }
 
-/* Hearts */
+/* HEARTS */
 .heart {
-  position: fixed;
+  position:fixed;
   bottom:-20px;
   font-size:18px;
   color:#66b2ff;
@@ -198,100 +170,117 @@ body {
 
 <body>
 
-<div id="envelope">
-  <div class="envelope-card">
-    <div class="envelope-flap"></div>
-  </div>
-</div>
+<div id="envelope"><div class="envelope"></div></div>
 
 <audio id="bgMusic" autoplay loop>
   <source src="assets/music.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container">
-
-  <!-- VIDEO -->
-  <div class="card">
-    <h2>🎥 Our Videos</h2>
-    <div class="video-layout">
-      <div class="video-wrapper">
-        <video id="videoPlayer" muted></video>
-      </div>
-      <div class="playlist">
-        <div onclick="playVideo('assets/videos/v1.mp4')">📹</div>
-        <div onclick="playVideo('assets/videos/v2.mp4')">📹</div>
-        <div onclick="playVideo('assets/videos/v3.mp4')">📹</div>
-        <div onclick="playVideo('assets/videos/v4.mp4')">📹</div>
-      </div>
-    </div>
-  </div>
-
+<div class="card">
+  <div class="type-text" id="typeText"></div>
 </div>
 
-<!-- STORY + MESSAGE -->
-<div class="story-section">
+<div class="card">
+  <div class="video-layout">
+    <div class="video-wrapper">
+      <video id="videoPlayer"></video>
+    </div>
+    <div class="playlist">
+      <div onclick="playVideo('assets/videos/v1.mp4')">📹</div>
+      <div onclick="playVideo('assets/videos/v2.mp4')">📹</div>
+      <div onclick="playVideo('assets/videos/v3.mp4')">📹</div>
+      <div onclick="playVideo('assets/videos/v4.mp4')">📹</div>
+    </div>
+  </div>
+</div>
 
+<!-- STORY 1 -->
+<div class="story-section">
   <div class="story-card">
-    <div class="story-progress" id="storyProgress"></div>
-    <img id="storyImg">
-    <div class="story-tap left" onclick="prevStory()"></div>
-    <div class="story-tap right" onclick="nextStory()"></div>
+    <div class="story-progress" id="prog1"></div>
+    <img id="story1">
+    <div class="story-tap left" onclick="prevStory(1)"></div>
+    <div class="story-tap right" onclick="nextStory(1)"></div>
   </div>
 
   <div class="message-card">
-    <h2>💌 For You</h2>
-    <p>
-      Every photo here reminds me why I fell for you.  
-      No matter how far apart we are, my love never leaves your side.  
-      I will always choose you. 💙
-    </p>
+    <h2>💌 My Love</h2>
+    <p>You are my favorite notification. My safe place. My person.</p>
+  </div>
+</div>
+
+<!-- STORY 2 -->
+<div class="story-section">
+  <div class="message-card">
+    <h2>💖 Always</h2>
+    <p>No matter what happens, I will always choose you.</p>
   </div>
 
+  <div class="story-card">
+    <div class="story-progress" id="prog2"></div>
+    <img id="story2">
+    <div class="story-tap left" onclick="prevStory(2)"></div>
+    <div class="story-tap right" onclick="nextStory(2)"></div>
+  </div>
 </div>
 
 <script>
-const bgMusic = document.getElementById("bgMusic");
-const videoPlayer = document.getElementById("videoPlayer");
+/* TYPE TEXT */
+const text = "Will you be my Valentine? 💙";
+let i=0;
+const typeText=document.getElementById("typeText");
+function type(){
+  if(i<text.length){
+    typeText.innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(type,80);
+  }
+}
+type();
+
+/* VIDEO */
+const bgMusic=document.getElementById("bgMusic");
+const videoPlayer=document.getElementById("videoPlayer");
 
 function playVideo(src){
-  videoPlayer.src = src;
-  videoPlayer.autoplay = true;
+  videoPlayer.src=src;
+  videoPlayer.muted=false;
   videoPlayer.play();
   bgMusic.pause();
 }
 
-videoPlayer.addEventListener("ended", ()=> bgMusic.play());
+videoPlayer.onended=()=>bgMusic.play();
 
-/* STORY */
-const storyImages = [
-  "assets/story/1.jpg",
-  "assets/story/2.jpg",
-  "assets/story/3.jpg",
-  "assets/story/4.jpg"
-];
+/* STORY LOGIC */
+const stories1=["assets/story/1.jpg","assets/story/2.jpg","assets/story/3.jpg"];
+const stories2=["assets/story/4.jpg","assets/story/5.jpg","assets/story/6.jpg"];
 
-let storyIndex = 0;
-let storyTimer;
-const storyDuration = 4000;
+let index1=0,index2=0;
+const dur=4000;
 
-const storyImg = document.getElementById("storyImg");
-const storyProgress = document.getElementById("storyProgress");
-
-storyImages.forEach(()=>{
-  const bar = document.createElement("div");
-  bar.innerHTML = "<span></span>";
-  storyProgress.appendChild(bar);
-});
-
-function showStory(){
-  clearTimeout(storyTimer);
-  storyImg.src = storyImages[storyIndex];
-  animateStoryProgress(storyIndex);
-  storyTimer = setTimeout(nextStory, storyDuration);
+function setupProgress(id,count){
+  const p=document.getElementById(id);
+  for(let i=0;i<count;i++){
+    const d=document.createElement("div");
+    d.innerHTML="<span></span>";
+    p.appendChild(d);
+  }
 }
 
-function animateStoryProgress(i){
-  const spans = document.querySelectorAll(".story-progress span");
+setupProgress("prog1",stories1.length);
+setupProgress("prog2",stories2.length);
+
+function showStory(set){
+  let img,arr,index;
+  if(set===1){ img=story1; arr=stories1; index=index1;}
+  else { img=story2; arr=stories2; index=index2;}
+
+  img.src=arr[index];
+  animateProgress(set,index);
+}
+
+function animateProgress(set,i){
+  const spans=document.querySelectorAll(`#prog${set} span`);
   spans.forEach(s=>s.style.width="0%");
   let w=0;
   const interval=setInterval(()=>{
@@ -300,34 +289,31 @@ function animateStoryProgress(i){
       w++;
       spans[i].style.width=w+"%";
     }
-  },storyDuration/100);
+  },dur/100);
 }
 
-function nextStory(){
-  storyIndex++;
-  if(storyIndex>=storyImages.length) storyIndex=0;
-  showStory();
+function nextStory(set){
+  if(set===1){ index1=(index1+1)%stories1.length; showStory(1);}
+  else{ index2=(index2+1)%stories2.length; showStory(2);}
 }
 
-function prevStory(){
-  storyIndex--;
-  if(storyIndex<0) storyIndex=storyImages.length-1;
-  showStory();
+function prevStory(set){
+  if(set===1){ index1=(index1-1+stories1.length)%stories1.length; showStory(1);}
+  else{ index2=(index2-1+stories2.length)%stories2.length; showStory(2);}
 }
 
-showStory();
+showStory(1);
+showStory(2);
 
 /* HEARTS */
-function createHeart(){
+setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
   h.textContent="❤";
   h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(3+Math.random()*3)+"s";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
-}
-setInterval(createHeart,900);
+},900);
 </script>
 
 </body>
