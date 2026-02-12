@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Valentines 💖</title>
+<title>Happy Valentines 💙</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
   margin:0;
-  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  background: radial-gradient(circle at top, rgba(20,40,80,0.9), #020b1a);
   font-family: 'Segoe UI', sans-serif;
   color:white;
 }
@@ -16,17 +16,18 @@ body {
 .container {
   max-width: 900px;
   margin: auto;
-  padding: 20px;
+  padding: 40px 20px;
 }
 
 /* CARD */
 .card {
-  background: rgba(255,255,255,0.15);
+  background: rgba(20,40,80,0.4);
   backdrop-filter: blur(12px);
   border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 25px;
-  box-shadow: 0 0 25px rgba(255,0,100,0.3);
+  padding: 25px;
+  margin-bottom: 50px;
+  box-shadow: 0 0 25px rgba(0,150,255,0.4),
+              0 0 60px rgba(0,150,255,0.2);
 }
 
 /* TITLE CARD */
@@ -37,35 +38,43 @@ body {
   font-size:2rem;
 }
 .title p {
-  margin-top:10px;
+  margin-top:15px;
 }
 
 /* VIDEO PLAYER */
 .video-wrapper video {
   width:100%;
   border-radius:15px;
+  background:black;
 }
 
 .playlist {
-  margin-top:15px;
+  margin-top:20px;
 }
 
 .playlist div {
-  padding:10px;
+  padding:12px;
   border-bottom:1px solid rgba(255,255,255,0.2);
   cursor:pointer;
 }
 
 .playlist div:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(0,150,255,0.2);
 }
 
-/* STORY */
+/* STORY PORTRAIT */
+.story-container {
+  display:flex;
+  justify-content:center;
+}
+
 .story-card {
   position: relative;
-  height: 350px;
+  width: 260px;
+  height: 460px; /* PORTRAIT MODE */
+  border-radius:20px;
   overflow: hidden;
-  border-radius:15px;
+  box-shadow: 0 0 20px rgba(0,150,255,0.6);
 }
 
 .story-card img {
@@ -76,7 +85,7 @@ body {
 
 .story-progress {
   display:flex;
-  gap:5px;
+  gap:4px;
   position:absolute;
   top:10px;
   left:10px;
@@ -86,7 +95,7 @@ body {
 .story-progress div {
   flex:1;
   height:4px;
-  background: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.3);
 }
 
 .story-progress span {
@@ -106,12 +115,12 @@ body {
 .story-tap.left { left:0; }
 .story-tap.right { right:0; }
 
-/* Floating hearts */
+/* Hearts */
 .heart {
   position: fixed;
   bottom:-20px;
-  font-size:20px;
-  color:#ffb6c1;
+  font-size:18px;
+  color:#66b2ff;
   animation: floatUp 6s linear infinite;
 }
 
@@ -132,10 +141,10 @@ body {
 
   <!-- CARD 1 -->
   <div class="card title">
-    <h1>HAPPY VALENTINES MY ONE OF ONE ❤️</h1>
+    <h1>HAPPY VALENTINES MY ONE OF ONE 💙</h1>
     <p>
-      Even though distance separates us, nothing can stop me from loving you.  
-      This is my little surprise for you 💖
+      Even though distance separates us, my heart is always with you.  
+      This is my little digital hug for you 🫶
     </p>
   </div>
 
@@ -147,10 +156,10 @@ body {
     </div>
 
     <div class="playlist">
-      <div onclick="playVideo('assets/videos/v1.mp4')">💖 Video 1</div>
-      <div onclick="playVideo('assets/videos/v2.mp4')">💖 Video 2</div>
-      <div onclick="playVideo('assets/videos/v3.mp4')">💖 Video 3</div>
-      <div onclick="playVideo('assets/videos/v4.mp4')">💖 Video 4</div>
+      <div onclick="playVideo('assets/videos/v1.mp4')">💙 Video 1</div>
+      <div onclick="playVideo('assets/videos/v2.mp4')">💙 Video 2</div>
+      <div onclick="playVideo('assets/videos/v3.mp4')">💙 Video 3</div>
+      <div onclick="playVideo('assets/videos/v4.mp4')">💙 Video 4</div>
     </div>
   </div>
 
@@ -158,18 +167,20 @@ body {
   <div class="card">
     <h2>📸 Our Memories</h2>
 
-    <div class="story-card" id="storyCard">
-      <div class="story-progress" id="storyProgress"></div>
-      <img id="storyImg">
-      <div class="story-tap left" onclick="prevStory()"></div>
-      <div class="story-tap right" onclick="nextStory()"></div>
+    <div class="story-container">
+      <div class="story-card" id="storyCard">
+        <div class="story-progress" id="storyProgress"></div>
+        <img id="storyImg">
+        <div class="story-tap left" onclick="prevStory()"></div>
+        <div class="story-tap right" onclick="nextStory()"></div>
+      </div>
     </div>
   </div>
 
 </div>
 
 <script>
-/* BACKGROUND MUSIC CONTROL */
+/* MUSIC CONTROL */
 const bgMusic = document.getElementById("bgMusic");
 const videoPlayer = document.getElementById("videoPlayer");
 
@@ -249,7 +260,7 @@ function createHeart(){
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
 }
-setInterval(createHeart,700);
+setInterval(createHeart,800);
 </script>
 
 </body>
